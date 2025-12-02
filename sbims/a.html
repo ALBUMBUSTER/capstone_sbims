@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBIMS-PRO - Barangay Libertad</title>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-dark: #1e3a8a;
+            --secondary: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8fafc;
+            --dark: #1e293b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .system-title h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .system-title p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .notification-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: white;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            padding: 1.5rem 0;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .menu-item {
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .menu-item:hover, .menu-item.active {
+            background-color: #eef2ff;
+            border-right: 3px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .menu-item i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .content {
+            flex: 1;
+            padding: 2rem;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-title h2 {
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+        
+        .page-title p {
+            color: var(--secondary);
+        }
+        
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .stat-card h3 {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-trend {
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .trend-up {
+            color: var(--success);
+        }
+        
+        .trend-down {
+            color: var(--danger);
+        }
+        
+        /* Data Tables */
+        .data-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .table-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .table-header h3 {
+            color: var(--dark);
+        }
+        
+        .table-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+        }
+        
+        .btn-outline:hover {
+            background: #f8fafc;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+        
+        .status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .status-approved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .status-settled {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
+            
+            .menu-text {
+                display: none;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-container">
+            <div class="logo">BL</div>
+            <div class="system-title">
+                <h1>SBIMS-PRO</h1>
+                <p>Brgy. Libertad, Isabel, Leyte</p>
+            </div>
+        </div>
+        
+        <div class="user-menu">
+            <div class="notification-icon">
+                <span>🔔</span>
+                <span class="notification-badge">3</span>
+            </div>
+            <div class="user-profile">
+                <span>Admin User</span>
+                <span>👤</span>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="menu-item active">
+                    <span>📊</span>
+                    <span class="menu-text">Dashboard</span>
+                </li>
+                <li class="menu-item">
+                    <span>👥</span>
+                    <span class="menu-text">Resident Records</span>
+                </li>
+                <li class="menu-item">
+                    <span>📝</span>
+                    <span class="menu-text">Blotter Cases</span>
+                </li>
+                <li class="menu-item">
+                    <span>📄</span>
+                    <span class="menu-text">Certificates</span>
+                </li>
+                <li class="menu-item">
+                    <span>📋</span>
+                    <span class="menu-text">Reports</span>
+                </li>
+                <li class="menu-item">
+                    <span>⚙️</span>
+                    <span class="menu-text">System Settings</span>
+                </li>
+                <li class="menu-item">
+                    <span>👤</span>
+                    <span class="menu-text">User Management</span>
+                </li>
+                <li class="menu-item">
+                    <span>📊</span>
+                    <span class="menu-text">Analytics</span>
+                </li>
+                <li class="menu-item">
+                    <span>🔒</span>
+                    <span class="menu-text">Logout</span>
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="content">
+            <div class="page-header">
+                <div class="page-title">
+                    <h2>Barangay Dashboard</h2>
+                    <p>Welcome to SBIMS-PRO Management System</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn btn-primary">
+                        <span>📥</span>
+                        <span>Generate Report</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Statistics Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>TOTAL POPULATION</h3>
+                    <div class="stat-value">1,247</div>
+                    <div class="stat-trend trend-up">
+                        <span>↑</span>
+                        <span>2.5% from last month</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>HOUSEHOLDS</h3>
+                    <div class="stat-value">312</div>
+                    <div class="stat-trend trend-up">
+                        <span>↑</span>
+                        <span>1.2% from last month</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>ACTIVE BLOTTER CASES</h3>
+                    <div class="stat-value">8</div>
+                    <div class="stat-trend trend-down">
+                        <span>↓</span>
+                        <span>10% from last month</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>CERTIFICATES ISSUED</h3>
+                    <div class="stat-value">47</div>
+                    <div class="stat-trend trend-up">
+                        <span>↑</span>
+                        <span>15% from last month</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Blotter Cases -->
+            <div class="data-table">
+                <div class="table-header">
+                    <h3>Recent Blotter Cases</h3>
+                    <div class="table-actions">
+                        <button class="btn btn-outline">
+                            <span>📋</span>
+                            <span>Export</span>
+                        </button>
+                        <button class="btn btn-primary">
+                            <span>➕</span>
+                            <span>New Case</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Case ID</th>
+                            <th>Complainant</th>
+                            <th>Respondent</th>
+                            <th>Date Filed</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BL-2024-001</td>
+                            <td>Juan Dela Cruz</td>
+                            <td>Maria Santos</td>
+                            <td>2024-03-15</td>
+                            <td><span class="status status-pending">Pending</span></td>
+                            <td>
+                                <button class="btn btn-outline">View</button>
+                                <button class="btn btn-outline">Edit</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BL-2024-002</td>
+                            <td>Pedro Reyes</td>
+                            <td>Antonio Lim</td>
+                            <td>2024-03-12</td>
+                            <td><span class="status status-settled">Settled</span></td>
+                            <td>
+                                <button class="btn btn-outline">View</button>
+                                <button class="btn btn-outline">Edit</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>BL-2024-003</td>
+                            <td>Lorna Diaz</td>
+                            <td>Roberto Garcia</td>
+                            <td>2024-03-10</td>
+                            <td><span class="status status-approved">Approved</span></td>
+                            <td>
+                                <button class="btn btn-outline">View</button>
+                                <button class="btn btn-outline">Edit</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Certificate Requests -->
+            <div class="data-table">
+                <div class="table-header">
+                    <h3>Pending Certificate Requests</h3>
+                    <div class="table-actions">
+                        <button class="btn btn-outline">
+                            <span>🔍</span>
+                            <span>Filter</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Resident Name</th>
+                            <th>Certificate Type</th>
+                            <th>Date Requested</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CR-2024-015</td>
+                            <td>Maria Santos</td>
+                            <td>Barangay Clearance</td>
+                            <td>2024-03-16</td>
+                            <td><span class="status status-pending">Pending</span></td>
+                            <td>
+                                <button class="btn btn-primary">Generate</button>
+                                <button class="btn btn-outline">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>CR-2024-016</td>
+                            <td>Juan Dela Cruz</td>
+                            <td>Indigency Certificate</td>
+                            <td>2024-03-15</td>
+                            <td><span class="status status-pending">Pending</span></td>
+                            <td>
+                                <button class="btn btn-primary">Generate</button>
+                                <button class="btn btn-outline">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple JavaScript for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menu item selection
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    menuItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Notification badge click
+            const notificationIcon = document.querySelector('.notification-icon');
+            notificationIcon.addEventListener('click', function() {
+                alert('You have 3 new notifications:\n- New blotter case filed\n- Certificate request pending approval\n- System backup completed');
+            });
+        });
+    </script>
+</body>
+</html>
